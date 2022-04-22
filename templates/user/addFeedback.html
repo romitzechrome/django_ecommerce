@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="www.frebsite.nl"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Feedback</title>
+
+    <!-- Custom CSS -->
+    <link href="../../static/userResources/css/styles.css" rel="stylesheet">
+    <link href="../../static/userResources/css/star.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/adminResources/css/jquery.toast.min.css">
+</head>
+
+<body class="grocery-theme light">
+
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div id="preloader">
+    <div class="preloader"><span></span><span></span></div>
+</div>
+
+
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper">
+
+    <!-- ============================================================== -->
+    <!-- Top header  -->
+    <!-- ============================================================== -->
+    <!-- Start Navigation -->
+    {% include 'user/header.html' %}
+
+    <!-- =========================== Breadcrumbs =================================== -->
+    <div class="breadcrumbs_wrap dark">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="text-center">
+                        <h2 class="breadcrumbs_title">Feedback</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/user/load_dashboard"><i class="ti-home"></i></a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="/user/view_feedback">Feedback</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Feedback page</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- =========================== Breadcrumbs =================================== -->
+
+
+    <!-- =========================== News & Articles =================================== -->
+    <section class="gray">
+        <div class="container">
+            <div class="row">
+
+                <div class="comment-detail-form col-12">
+                    <div class="section-title2">
+                        <h3 id="reply-title" class="comment-reply-title">Post Your Feedback</h3>
+                    </div>
+
+                    <form class="cmxform" method="post" action="/user/insert_feedback/"
+                          onsubmit="return addFeedbackType()">
+                        {% csrf_token %}
+                        <div class="row">
+
+                            <div class="rate mb-4">
+                                <input type="radio" id="star5" name="feedbackRating" value="5"/><label for="star5"
+                                                                                                       title="text">5
+                                stars</label>
+                                <input type="radio" id="star4" name="feedbackRating" value="4"/><label for="star4"
+                                                                                                       title="text">4
+                                stars</label>
+                                <input type="radio" id="star3" name="feedbackRating" value="3"/><label for="star3"
+                                                                                                       title="text">3
+                                stars</label>
+                                <input type="radio" id="star2" name="feedbackRating" value="2"/><label for="star2"
+                                                                                                       title="text">2
+                                stars</label>
+                                <input type="radio" id="star1" name="feedbackRating" value="1"/><label for="star1"
+                                                                                                       title="text">1
+                                star</label>
+                            </div>
+
+
+                            <div class="form-group col-md-12 col-sm-12">
+                                <textarea class="form-control" placeholder="Write your Feedback"
+                                          name="feedbackDescription" id="feedbackDescription"></textarea>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12">
+                                <button class="btn btn-primary" type="submit">Post</button>
+                            </div>
+                        </div>
+                    </form>
+                    <br><br>
+                </div>
+
+            </div>
+
+            <div class="comment-wrap">
+                <div class="comment-detail">
+                    <div class="comment-detail-title">
+                        <h4>View Feedback</h4>
+                    </div>
+                    {% if feedback_vo_list %}
+                        <div class="row">
+                            {% for feedback in feedback_vo_list %}
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <div class="d-flex align-items-start profile-feed-item">
+                                            <img src="../../static/adminResources/images/face8.jpg" alt="profile"
+                                                 class="img-sm rounded-circle">
+                                            <div class="ml-4">
+                                                <h6>
+                                                    {{ feedback.feedback_login_vo.login_username }}
+                                                    <div id="div2">
+                                                        <small class="ml-4 text-muted"><i
+                                                                class="fas fa-clock"></i>{{ feedback.feedback_datetime }}
+                                                        </small>
+                                                    </div>
+                                                    <p>
+                                                        {% with ''|center:feedback.feedback_rating as range %}
+                                                            {% for _ in range %}
+                                                                <i class="fas fa-star"></i>
+                                                            {% endfor %}
+                                                        {% endwith %}
+                                                    </p>
+                                                </h6>
+                                                <p>
+                                                    {{ feedback.feedback_description }}
+                                                </p>
+                                                <p class="small text-muted mt-2 mb-0">
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="row" style="margin-left:600px;">
+                            <h5>No Feedback Available !</h5>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- =========================== News & Articles =================================== -->
+
+
+    <!-- ============================ Call To Action End ================================== -->
+
+    {% include 'user/footer.html' %}
+
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="../../static/userResources/js/jquery.min.js"></script>
+<script src="../../static/userResources/js/popper.min.js"></script>
+<script src="../../static/userResources/js/bootstrap.min.js"></script>
+<script src="../../static/userResources/js/metisMenu.min.js"></script>
+<script src="../../static/userResources/js/owl-carousel.js"></script>
+<script src="../../static/userResources/js/ion.rangeSlider.min.js"></script>
+<script src="../../static/userResources/js/smoothproducts.js"></script>
+<script src="../../static/userResources/js/jquery-rating.js"></script>
+<script src="../../static/userResources/js/jQuery.style.switcher.js"></script>
+<script src="../../static/userResources/js/custom.js"></script>
+<script src="../../static/adminResources/js/jquery.toast.min.js"></script>
+<script src="../../static/adminResources/js/toaster.js"></script>
+
+<script src="../../static/adminResources/js/customValidation.js"></script>
+
+<script>
+    function openRightMenu() {
+        document.getElementById("rightMenu").style.display = "block";
+    }
+
+    function closeRightMenu() {
+        document.getElementById("rightMenu").style.display = "none";
+    }
+</script>
+
+<script>
+    function openLeftMenu() {
+        document.getElementById("leftMenu").style.display = "block";
+    }
+
+    function closeLeftMenu() {
+        document.getElementById("leftMenu").style.display = "none";
+    }
+</script>
+
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="www.frebsite.nl"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Error Page</title>
+
+    <!-- Custom CSS -->
+    <link href="../../static/userResources/css/styles.css" rel="stylesheet">
+
+</head>
+
+<body class="grocery-theme light error-page">
+
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div id="preloader">
+    <div class="preloader"><span></span><span></span></div>
+</div>
+
+
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper">
+
+    <!-- ============================================================== -->
+    <!-- Top header  -->
+    <!-- ============================================================== -->
+    <!-- Start Navigation -->
+    <!-- End Navigation -->
+    <div class="clearfix"></div>
+    <!-- ============================================================== -->
+    <!-- Top header  -->
+    <!-- ============================================================== -->
+
+    <!-- =========================== Breadcrumbs =================================== -->
+    <div class="breadcrumbs_wrap dark">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="text-center">
+                        <h2 class="breadcrumbs_title">Sorry! Something went wrong...</h2>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- =========================== Breadcrumbs =================================== -->
+
+
+    <!-- =========================== Error Page =================================== -->
+    <section class="gray">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12 text-center">
+                    <h2 class="error_title">4<span class="text-primary">0</span>4<i class="ti-help"></i></h2>
+                    <p><span class="text-primary">Woops!</span> {{ message }}</p>
+                    <a href="/user/load_dashboard" class="btn btn-primary">Go To Home Page</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- =========================== Error Page =================================== -->
+
+
+    <!-- ============================ Call To Action ================================== -->
+    <!-- ============================ Call To Action End ================================== -->
+
+    <!-- ============================ Footer Start ================================== -->
+    {% include 'user/footer.html' %}
+    <!-- ============================ Footer End ================================== -->
+
+
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="../../static/userResources/js/jquery.min.js"></script>
+<script src="../../static/userResources/js/popper.min.js"></script>
+<script src="../../static/userResources/js/bootstrap.min.js"></script>
+<script src="../../static/userResources/js/metisMenu.min.js"></script>
+<script src="../../static/userResources/js/owl-carousel.js"></script>
+<script src="../../static/userResources/js/ion.rangeSlider.min.js"></script>
+<script src="../../static/userResources/js/smoothproducts.js"></script>
+<script src="../../static/userResources/js/jquery-rating.js"></script>
+<script src="../../static/userResources/js/jQuery.style.switcher.js"></script>
+<script src="../../static/userResources/js/custom.js"></script>
+
+<script>
+    function openRightMenu() {
+        document.getElementById("rightMenu").style.display = "block";
+    }
+
+    function closeRightMenu() {
+        document.getElementById("rightMenu").style.display = "none";
+    }
+</script>
+
+<script>
+    function openLeftMenu() {
+        document.getElementById("leftMenu").style.display = "block";
+    }
+
+    function closeLeftMenu() {
+        document.getElementById("leftMenu").style.display = "none";
+    }
+</script>
+
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+
+</body>
+</html>
