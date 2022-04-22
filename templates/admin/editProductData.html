@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Edit Product Data</title>
+    <link rel="stylesheet" href="../../static/adminResources/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/vendor.bundle.addons.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/style.css">
+    <link rel="shortcut icon" href="../../static/adminResources/images/favicon.png"/>
+    <script>
+        function loadProductSubcategory() {
+
+            var productCategoryId = document.getElementById("productCategoryId");
+            var productSubcategoryId = document.getElementById("productSubcategoryId");
+
+            productSubcategoryId.innerHTML = "";
+
+            var ajax = new XMLHttpRequest();
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState == 4) {
+                    var json = JSON.parse(ajax.responseText);
+                    for (var i = 0; i < json.length; i++) {
+                        var option = document.createElement("option");
+                        option.value = json[i].subcategory_id;
+                        option.text = json[i].subcategory_name;
+                        productSubcategoryId.options.add(option);
+                    }
+                }
+            };
+            ajax.open("get", "/admin/ajax_subcategory_product?productCategoryId=" + productCategoryId.value, true);
+            ajax.send();
+        }
+    </script>
+
+</head>
+
+<body>
+<div class="container-scroller">
+
+    {% include 'admin/header.html' %}
+
+
+    <div class="container-fluid page-body-wrapper">
+
+        {% include 'admin/menu.html' %}
+
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row grid-margin">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Edit Product Data</h4>
+                                <form action="/admin/update_product_data/" method="post">
+                                    {% csrf_token %}
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <label for="productCategoryId">Category Name:</label>
+                                            <select class="form-control form-control-lg" id="productCategoryId"
+                                                    name="productCategoryId" onchange="loadProductSubcategory()">
+                                                <option value="Select one" selected disabled>Select Category</option>
+                                                {% for i in category_vo_list %}
+                                                    <option value="{{ i.category_id }}">{{ i.category_name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="productSubcategoryId">SubCategory Name:</label>
+                                            <select class="form-control form-control-lg" name="productSubcategoryId"
+                                                    id="productSubcategoryId">
+                                                <option selected disabled>Select SubCategory</option>
+                                            </select>
+                                        </div>
+
+
+                                        {% for j in product_vo_list %}
+                                            <input type="hidden" id="productId" name="productId"
+                                                   value="{{ j.product_id }}"><br><br>
+
+                                            <div class="form-group">
+                                                <label for="productName">Product Name:</label>
+                                                <input class="form-control" type="text" id="productName"
+                                                       name="productName" value="{{ j.product_name }}" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="productDescription">Product Description:</label>
+                                                <textarea class="form-control" id="productDescription"
+                                                          name="productDescription"
+                                                          required>{{ j.product_description }}</textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="productQuantity">Product Quantity:</label>
+                                                <input class="form-control" type="number" id="productQuantity"
+                                                       name="productQuantity" value="{{ j.product_quantity }}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="productPrice">Product Price:</label>
+                                                <input class="form-control" type="text" id="productPrice"
+                                                       name="productPrice" value="{{ j.product_price }}" required>
+                                            </div>
+                                            <input class="btn btn-primary" type="submit" value="Submit">
+                                        {% endfor %}
+                                    </fieldset>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:../../partials/_footer.html -->
+
+            {% include 'admin/footer.html' %}
+
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<script src="../../static/adminResources/js/vendor.bundle.base.js"></script>
+<script src="../../static/adminResources/js/vendor.bundle.addons.js"></script>
+<!-- endinject -->
+<!-- inject:js -->
+<script src="../../static/adminResources/js/off-canvas.js"></script>
+<script src="../../static/adminResources/js/hoverable-collapse.js"></script>
+<script src="../../static/adminResources/js/template.js"></script>
+<script src="../../static/adminResources/js/settings.js"></script>
+<script src="../../static/adminResources/js/todolist.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="../../static/adminResources/js/form-validation.js"></script>
+<script src="../../static/adminResources/js/bt-maxLength.js"></script>
+<!-- End custom js for this page-->
+</body>
+
+</html>

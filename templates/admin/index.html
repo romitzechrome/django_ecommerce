@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Dashboard</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../static/adminResources/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/vendor.bundle.addons.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../static/adminResources/css/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="../../static/adminResources/images/favicon.png"/>
+</head>
+<body>
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+
+
+    {% include 'admin/header.html' %}
+
+
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+
+        <!-- partial:partials/_sidebar.html -->
+
+        {% include 'admin/menu.html' %}
+
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between flex-wrap align-items-center">
+                                    <div class="img-sm bg-primary rounded-md d-flex align-items-center justify-content-center text-white">
+                                        <i class="mdi mdi-emoticon icon-md"></i>
+                                    </div>
+                                    <div class="text-right text-md-center text-lg-left ml-lg-4">
+                                        <h1 class="font-weight-bold mb-0">{{ count_user }}</h1>
+                                        <p class="mb-0">Users</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between flex-wrap align-items-center">
+                                    <div class="img-sm bg-danger rounded-md d-flex align-items-center justify-content-center text-white">
+                                        <i class="mdi mdi-comment-question-outline icon-md"></i>
+                                    </div>
+                                    <div class="text-right text-md-center text-lg-left ml-lg-4">
+                                        <h1 class="font-weight-bold mb-0">{{ count_complain }}</h1>
+                                        <p class="mb-0">complaints</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between flex-wrap align-items-center">
+                                    <div class="img-sm bg-warning rounded-md d-flex align-items-center justify-content-center text-white">
+                                        <i class="mdi mdi-thumb-up icon-md"></i>
+                                    </div>
+                                    <div class="text-right text-md-center text-lg-left ml-lg-4">
+                                        <h1 class="font-weight-bold mb-0">{{ count_feedback }}</h1>
+                                        <p class="mb-0">FeedBack</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between flex-wrap align-items-center">
+                                    <div class="img-sm bg-success rounded-md d-flex align-items-center justify-content-center text-white">
+                                        <i class="mdi mdi-carrot icon-md"></i>
+                                    </div>
+                                    <div class="text-right text-md-center text-lg-left ml-lg-4">
+                                        <h1 class="font-weight-bold mb-0">{{ count_product }}</h1>
+                                        <p class="mb-0">Products</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% include 'admin/footer.html' %}
+        </div>
+    </div>
+
+</div>
+
+
+<script src="../../static/adminResources/js/vendor.bundle.base.js"></script>
+<script src="../../static/adminResources/js/vendor.bundle.addons.js"></script>
+<script src="../../static/adminResources/js/off-canvas.js"></script>
+<script src="../../static/adminResources/js/hoverable-collapse.js"></script>
+<script src="../../static/adminResources/js/template.js"></script>
+<script src="../../static/adminResources/js/settings.js"></script>
+<script src="../../static/adminResources/js/todolist.js"></script>
+<script src="../../static/adminResources/js/dashboard.js"></script>
+</body>
+
+</html>

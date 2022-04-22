@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="www.frebsite.nl"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Complain</title>
+
+    <!-- Custom CSS -->
+    <link href="../../static/userResources/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/adminResources/css/jquery.toast.min.css">
+
+</head>
+
+<body class="grocery-theme light">
+
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div id="preloader">
+    <div class="preloader"><span></span><span></span></div>
+</div>
+
+
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper">
+
+    <!-- ============================================================== -->
+    <!-- Top header  -->
+    <!-- ============================================================== -->
+    <!-- Start Navigation -->
+    {% include 'user/header.html' %}
+
+    <!-- =========================== Breadcrumbs =================================== -->
+    <div class="breadcrumbs_wrap dark">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="text-center">
+                        <h2 class="breadcrumbs_title">Complain</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/user/load_dashboard"><i class="ti-home"></i></a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="/user/view_complain">Complain</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Complain page</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- =========================== Breadcrumbs =================================== -->
+
+
+    <!-- =========================== News & Articles =================================== -->
+    <section class="gray">
+        <div class="container">
+            <div class="row">
+
+                <div class="comment-detail-form col-12">
+                    <div class="section-title2">
+                        <h3 id="reply-title" class="comment-reply-title">Post Your Complaint</h3>
+                    </div>
+                    <form class="cmxform" method="post" action="/user/insert_complain/"
+                          onsubmit="return addComplainType()">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="form-group col-md-12 col-sm-12">
+                                <input type="text" class="form-control" placeholder="Enter Complaint Subject"
+                                       name="complainSubject" id="ComplainSubject">
+                            </div>
+
+                            <div class="form-group col-md-12 col-sm-12">
+                                <textarea class="form-control" placeholder="Enter About Your Complaint"
+                                          name="complainDescription" id="ComplainDescription"></textarea>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12">
+                                <button class="btn btn-primary" type="submit">Post</button>
+                            </div>
+                        </div>
+                    </form>
+                    <br><br>
+                </div>
+
+            </div>
+
+            <div class="comment-wrap">
+                <div class="comment-detail">
+                    <div class="comment-detail-title">
+                        <h4>View Complaint</h4>
+                    </div>
+                    {% if complain_vo_list %}
+                        <div class="row">
+                            {% for complain in complain_vo_list %}
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <div class="d-flex align-items-start profile-feed-item">
+                                            <img src="../../static/adminResources/images/face8.jpg" alt="profile"
+                                                 class="img-sm rounded-circle">
+                                            <div class="ml-4">
+                                                <h6>
+                                                    {{ complain.complain_login_vo.login_username }}
+                                                    <div id="div2">
+                                                        <small class="ml-4 text-muted"><i
+                                                                class="mdi mdi-clock mr-1"></i>{{ complain.complain_datetime }}
+                                                        </small>
+                                                    </div>
+                                                </h6>
+                                                <p> &nbsp;&nbsp;&nbsp;
+                                                    <u>Complain Subject</u>:
+                                                    &nbsp;&nbsp;{{ complain.complain_subject }}
+                                                </p>
+                                                <p>
+                                                    {{ complain.complain_description }}
+                                                </p>
+                                                <p class="small text-muted mt-2 mb-0">
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if reply_vo_list %}
+                                        {% for reply in reply_vo_list %}
+                                            {% if reply.reply_complain_vo.complain_id == complain.complain_id %}
+                                                <div style="margin-left: 250px" class="table-responsive">
+                                                    <div class="d-flex align-items-start profile-feed-item">
+                                                        <img src="../../static/adminResources/images/avatar.png"
+                                                             alt="profile"
+                                                             class="img-sm rounded-circle">
+                                                        <div class="ml-4">
+                                                            <h6>{{ reply.reply_login_vo.login_username }}
+
+                                                                <div id="div2">
+                                                                    <small class="ml-4 text-muted"><i
+                                                                            class="mdi mdi-clock mr-1"></i>{{ reply.reply_datetime }}
+                                                                    </small>
+                                                                </div>
+                                                            </h6>
+                                                            <p>
+                                                                {{ reply.reply_description }}
+                                                            </p>
+                                                            <p class="small text-muted mt-2 mb-0">
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="row" style="margin-left:400px;">
+                            <h5>No Complain Available !</h5>
+                        </div>
+                    {% endif %}
+
+
+                </div>
+            </div>
+
+            <!-- Sidebar Start -->
+        </div>
+
+    </section>
+    <!-- =========================== News & Articles =================================== -->
+
+    <!-- ============================ Call To Action ================================== -->
+    <section class="theme-bg call_action_wrap-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="call_action_wrap">
+                        <div class="call_action_wrap-head">
+                            <h3>Do You Have Questions ?</h3>
+                            <span>We'll help you to grow your career and growth.</span>
+                        </div>
+                        <div class="newsletter_box">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Subscribe here...">
+                                <div class="input-group-append">
+                                    <button class="btn search_btn" type="button"><i
+                                            class="fas fa-arrow-alt-circle-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ============================ Call To Action End ================================== -->
+
+    {% include 'user/footer.html' %}
+
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="../../static/userResources/js/jquery.min.js"></script>
+<script src="../../static/userResources/js/popper.min.js"></script>
+<script src="../../static/userResources/js/bootstrap.min.js"></script>
+<script src="../../static/userResources/js/metisMenu.min.js"></script>
+<script src="../../static/userResources/js/owl-carousel.js"></script>
+<script src="../../static/userResources/js/ion.rangeSlider.min.js"></script>
+<script src="../../static/userResources/js/smoothproducts.js"></script>
+<script src="../../static/userResources/js/jquery-rating.js"></script>
+<script src="../../static/userResources/js/jQuery.style.switcher.js"></script>
+<script src="../../static/userResources/js/custom.js"></script>
+<script src="../../static/adminResources/js/jquery.toast.min.js"></script>
+<script src="../../static/adminResources/js/toaster.js"></script>
+
+<script src="../../static/adminResources/js/customValidation.js"></script>
+
+<script>
+    function openRightMenu() {
+        document.getElementById("rightMenu").style.display = "block";
+    }
+
+    function closeRightMenu() {
+        document.getElementById("rightMenu").style.display = "none";
+    }
+</script>
+
+<script>
+    function openLeftMenu() {
+        document.getElementById("leftMenu").style.display = "block";
+    }
+
+    function closeLeftMenu() {
+        document.getElementById("leftMenu").style.display = "none";
+    }
+</script>
+
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+
+</body>
+</html>

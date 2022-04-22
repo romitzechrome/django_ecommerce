@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Add Product</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../static/adminResources/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/vendor.bundle.addons.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../static/adminResources/css/style.css">
+    <link rel="stylesheet" href="../../static/adminResources/css/jquery.toast.min.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="../../static/adminResources/images/favicon.png"/>
+
+    <script type="text/javascript">
+
+        function loadSubCategoryProduct() {
+            var productCategoryId = document.getElementById("productCategoryId");
+            var productSubcategoryId = document.getElementById("productSubcategoryId");
+            productSubcategoryId.innerHTML = "";
+            var ajax = new XMLHttpRequest();
+            ajax.onreadystatechange = function () {
+                if (ajax.readyState === 4) {
+
+                    var json = JSON.parse(ajax.responseText);
+
+                    for (var i = 0; i < json.length; i++) {
+
+                        var option = document.createElement("option");
+                        option.value = json[i].subcategory_id;
+                        option.text = json[i].subcategory_name;
+                        productSubcategoryId.options.add(option);
+                    }
+                }
+            };
+            ajax.open("get", "/admin/ajax_subcategory_product?productCategoryId=" + productCategoryId.value, true);
+            ajax.send();
+        }
+
+    </script>
+
+</head>
+
+<body>
+<div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+
+
+    {% include 'admin/header.html' %}
+
+
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+
+        <!-- partial:partials/_sidebar.html -->
+
+        {% include 'admin/menu.html' %}
+
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row grid-margin">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Add Product</h4>
+                                <form action="/admin/insert_product/" method="post" enctype="multipart/form-data"
+                                      onsubmit="return addProductType()">
+                                    {% csrf_token %}
+                                    <fieldset>
+                                        <div class="form-group">
+                                            <select class="form-control form-control-lg" name="productCategoryId"
+                                                    id="productCategoryId" onchange="loadSubCategoryProduct()">
+                                                <option value="none">Select Category</option>
+
+                                                {% for row in category_vo_list %}
+
+                                                    <option value="{{ row.category_id }}">{{ row.category_name }}</option>
+
+                                                {% endfor %}
+
+
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control form-control-lg" name="productSubcategoryId"
+                                                    id="productSubcategoryId">
+
+                                                <option value="none">Select Subcategory</option>
+
+
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cname">Product Name</label>
+                                            <input id="productName" class="form-control" name="productName" type="text"
+                                                   onkeypress='return event.charCode>=65 && event.charCode<=90 || event.charCode>=97 && event.charCode<=122 || event.charCode==32 || event.charCode>=48 && event.charCode<=57'>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="ccomment">Product Description</label>
+                                            <textarea id="productDescription" class="form-control"
+                                                      name="productDescription"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="cname">Product Quantity</label>
+                                            <input id="productQuantity" class="form-control" name="productQuantity"
+                                                   type="text">
+                                        </div>
+
+
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text bg-primary text-white">₹</span>
+                                            </div>
+                                            <input type="text" id="productPrice" class="form-control"
+                                                   placeholder="Enter Price" name="productPrice"
+                                                   aria-label="Amount (to the nearest dollar)"
+                                                   onkeypress='return event.charCode>=48 && event.charCode<=57'>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">.00</span>
+                                            </div>
+                                        </div>
+                                        <br><br>
+
+                                        <div class="form-group">
+                                            <label>File upload</label>
+                                            <input type="file" name="productImage" class="file-upload-default"
+                                                   accept="image/png, image/jpeg">
+                                            <div class="input-group col-xs-12">
+                                                <input type="text" class="form-control file-upload-info" disabled=""
+                                                       placeholder="Upload Image">
+                                                <span class="input-group-append">
+                          <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                        </span>
+                                            </div>
+                                        </div>
+
+
+                                        <input class="btn btn-primary" type="submit" value="Submit">
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:../../partials/_footer.html -->
+
+            {% include 'admin/footer.html' %}
+
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<script src="../../static/adminResources/js/vendor.bundle.base.js"></script>
+<script src="../../static/adminResources/js/vendor.bundle.addons.js"></script>
+<!-- endinject -->
+<!-- inject:js -->
+<script src="../../static/adminResources/js/off-canvas.js"></script>
+<script src="../../static/adminResources/js/hoverable-collapse.js"></script>
+<script src="../../static/adminResources/js/template.js"></script>
+<script src="../../static/adminResources/js/settings.js"></script>
+<script src="../../static/adminResources/js/todolist.js"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script src="../../static/adminResources/js/file-upload.js"></script>
+<script src="../../static/adminResources/js/form-validation.js"></script>
+<script src="../../static/adminResources/js/bt-maxLength.js"></script>
+
+<script src="../../static/adminResources/js/jquery.toast.min.js"></script>
+<script src="../../static/adminResources/js/toaster.js"></script>
+
+<script src="../../static/adminResources/js/customValidation.js"></script>
+<!-- End custom js for this page-->
+</body>
+
+</html>

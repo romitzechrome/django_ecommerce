@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="www.frebsite.nl"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>Login</title>
+
+    <!-- Custom CSS -->
+    <link href="../../static/userResources/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/adminResources/css/jquery.toast.min.css">
+
+</head>
+
+<body class="grocery-theme light">
+
+<!-- =========================== Login/Signup =================================== -->
+<section class="pb-5">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-3 col-md-12 col-sm-12"></div>
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="login_signup">
+                    <h2 align="center">Innoventa</h2><br>
+                    <h3 class="login_sec_title">Login</h3>
+                    <form action="/admin/validate_login/" method="post" onsubmit="return addLoginType()">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="email" placeholder="Enter Your Email" id="loginUsername" name="loginUsername"
+                                   class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" placeholder="Enter Your Password" id="loginPassword"
+                                   name="loginPassword"
+                                   class="form-control">
+                            <a href="/user/load_forget_password" class="text-bold float-right">Forget Password?</a>
+                        </div>
+                        <br><br>
+
+                        <div class="form-group">
+                            <button type="submit" style="width: 100%" class="btn btn-md btn-theme">Login</button>
+                        </div>
+
+                        <div class="login_flex">
+                            <div class="login_flex_1" style="text-align: center">
+                                You don't have an account?<a href="/user/load_user" class="text-bold"> Register</a>
+                            </div>
+                        </div>
+
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div style="border:none;color: red; font-size: 20px; margin-left:150px;">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- =========================== Login/Signup =================================== -->
+
+{% include 'user/footer.html' %}
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="../../static/userResources/js/jquery.min.js"></script>
+<script src="../../static/userResources/js/popper.min.js"></script>
+<script src="../../static/userResources/js/bootstrap.min.js"></script>
+<script src="../../static/userResources/js/metisMenu.min.js"></script>
+<script src="../../static/userResources/js/owl-carousel.js"></script>
+<script src="../../static/userResources/js/ion.rangeSlider.min.js"></script>
+<script src="../../static/userResources/js/smoothproducts.js"></script>
+<script src="../../static/userResources/js/jquery-rating.js"></script>
+<script src="../../static/userResources/js/jQuery.style.switcher.js"></script>
+<script src="../../static/userResources/js/custom.js"></script>
+<script src="../../static/adminResources/js/jquery.toast.min.js"></script>
+<script src="../../static/adminResources/js/toaster.js"></script>
+
+<script src="../../static/adminResources/js/customValidation.js"></script>
+
+<script>
+    function openRightMenu() {
+        document.getElementById("rightMenu").style.display = "block";
+    }
+
+    function closeRightMenu() {
+        document.getElementById("rightMenu").style.display = "none";
+    }
+</script>
+
+<script>
+    function openLeftMenu() {
+        document.getElementById("leftMenu").style.display = "block";
+    }
+
+    function closeLeftMenu() {
+        document.getElementById("leftMenu").style.display = "none";
+    }
+</script>
+
+<script>
+    function openFilterSearch() {
+        document.getElementById("filter_search").style.display = "block";
+    }
+
+    function closeFilterSearch() {
+        document.getElementById("filter_search").style.display = "none";
+    }
+</script>
+
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+
+</body>
+</html>

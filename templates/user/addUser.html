@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="www.frebsite.nl"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>User</title>
+
+    <!-- Custom CSS -->
+    <link href="../../static/userResources/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/adminResources/css/jquery.toast.min.css">
+
+</head>
+
+<body class="grocery-theme light">
+
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div id="preloader">
+    <div class="preloader"><span></span><span></span></div>
+</div>
+
+
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper">
+
+
+    <!-- =========================== Login/Signup =================================== -->
+    <section class="pb-5">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-2 col-md-12 col-sm-12"></div>
+                <div class="col-lg-8 col-md-12 col-sm-12">
+                    <div class="login_signup">
+                        <h3 class="login_sec_title">Create An Account</h3>
+                        <form action="/user/insert_user/" method="post" onsubmit="return addRegisterType()">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+
+                                        <input type="text" name="userFirstname" class="form-control"
+                                               placeholder="Enter First Name" id="userFirstname"
+                                               onkeypress='return event.charCode>=65 && event.charCode<=90 || event.charCode>=97 && event.charCode<=122'>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" name="userLastname" class="form-control"
+                                               placeholder="Enter Last Name" id="userLastname"
+                                               onkeypress='return event.charCode>=65 && event.charCode<=90 || event.charCode>=97 && event.charCode<=122'>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="email" name="loginUsername" class="form-control"
+                                               placeholder="Enter Username" id="loginUsername">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <div class="btn-group-toggle mt-2 d-flex bd-highlight">
+                                            <div class="mr-2 ml-3">
+                                                <input id="male" class="radio-custom" type="radio" name="userGender" value="male">
+                                                <label for="male" class="radio-custom-label">Male</label>
+                                            </div>
+                                            <div class="ml-1 ml-3">
+                                                <input id="female" class="radio-custom" type="radio" name="userGender" value="female">
+                                                <label for="female" class="radio-custom-label">Female</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <select class="form-control" name="userArea" id="userArea">
+                                            <option selected value="none">Select Area</option>
+                                            {% for row in area_vo_list %}
+                                                <option value="{{ row.area_id }}">{{ row.area_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <div class="btn-group-toggle mt-2 d-flex bd-highlight">
+                                            <div class="mr-2 ml-3">
+                                                <input id="b1" class="checkbox-custom" type="checkbox" value="Cricket"
+                                                       name="userHobby">
+                                                <label for="b1" class="checkbox-custom-label">Cricket</label>
+                                            </div>
+                                            <div class="ml-1 ml-3">
+                                                <input id="b2" class="checkbox-custom" type="checkbox" value="Football"
+                                                       name="userHobby">
+                                                <label for="b2" class="checkbox-custom-label">Football</label>
+                                            </div>
+                                            <div class="ml-1 ml-3">
+                                                <input id="b3" class="checkbox-custom" type="checkbox"
+                                                       value="Volleyball" name="userHobby">
+                                                <label for="b3" class="checkbox-custom-label">Volleyball</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="userAddress"
+                                                  placeholder="Enter Your Address" id="userAddress"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <button type="submit" style="width: 100%" class="btn btn-md btn-theme">Sign Up
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div style="border:none;color: red; font-size: 20px; margin-left:150px;">{{ message }}</div>
+                                    {% endfor %}
+                                {% endif %}
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group" style="text-align: center">
+                                        <label>Already registered?</label><a href="/"> Login</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================ Call To Action End ================================== -->
+    {% include 'user/footer.html' %}
+
+</div>
+<script src="../../static/userResources/js/jquery.min.js"></script>
+<script src="../../static/userResources/js/popper.min.js"></script>
+<script src="../../static/userResources/js/bootstrap.min.js"></script>
+<script src="../../static/userResources/js/metisMenu.min.js"></script>
+<script src="../../static/userResources/js/owl-carousel.js"></script>
+<script src="../../static/userResources/js/ion.rangeSlider.min.js"></script>
+<script src="../../static/userResources/js/smoothproducts.js"></script>
+<script src="../../static/userResources/js/jquery-rating.js"></script>
+<script src="../../static/userResources/js/jQuery.style.switcher.js"></script>
+<script src="../../static/userResources/js/custom.js"></script>
+<script src="../../static/adminResources/js/jquery.toast.min.js"></script>
+<script src="../../static/adminResources/js/toaster.js"></script>
+
+<script src="../../static/adminResources/js/customValidation.js"></script>
+
+<script>
+    function openRightMenu() {
+        document.getElementById("rightMenu").style.display = "block";
+    }
+
+    function closeRightMenu() {
+        document.getElementById("rightMenu").style.display = "none";
+    }
+</script>
+
+<script>
+    function openLeftMenu() {
+        document.getElementById("leftMenu").style.display = "block";
+    }
+
+    function closeLeftMenu() {
+        document.getElementById("leftMenu").style.display = "none";
+    }
+</script>
+
+<script>
+    function openFilterSearch() {
+        document.getElementById("filter_search").style.display = "block";
+    }
+
+    function closeFilterSearch() {
+        document.getElementById("filter_search").style.display = "none";
+    }
+</script>
+
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+
+</body>
+</html>
